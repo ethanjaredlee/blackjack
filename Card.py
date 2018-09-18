@@ -1,8 +1,14 @@
+import constants
+
 class Card(object):
     """ 
     Class representing a single card
     """
     def __init__(self, rank, suit):
+        # check rank is value
+        assert rank in constants.CARD_RANKS
+        assert suit in constants.CARD_SUITS
+
         self.rank = rank
         self.suit = suit
   
@@ -10,7 +16,7 @@ class Card(object):
         return "[" + self.rank + "|" + self.suit + "]"
 
     def getValue(self, player):
-        if self.rank in range(2, 11):
+        if self.rank in [str(n) for n in range(2,11)]:
             # number card
             return self.rank
         elif self.rank in ["J", "Q", "K"]:
