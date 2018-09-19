@@ -9,3 +9,6 @@ class Player(object):
 
     def acceptCard(self, card):
         self.hand.addCard(card)
+
+    def getHandValue(self):
+        return self.hand.getValue()

@@ -1,8 +1,8 @@
-import Game.Admin as Admin
+import Game.Dealer as Dealer
 import unittest
 
-class AdminTestCase(unittest.TestCase):
+class DealerTestCase(unittest.TestCase):
     def test_deck_construction(self):
         # Test deck construction of unique cards
-        admin = Admin.Admin(3)
-        self.assertEqual(len(set(admin.pile)), 52*3)
+        dealer = Dealer.Dealer(3)
+        self.assertEqual(len(set(dealer.pile)), 52*3)

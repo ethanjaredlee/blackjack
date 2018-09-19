@@ -3,7 +3,7 @@ from Player import Player
 import constants
 import random
 
-class Admin(object):
+class Dealer(object):
 
     def __init__(self, decks):
         assert decks > 0, "Number of decks must be greater than 0"
@@ -25,3 +25,7 @@ class Admin(object):
         player = Player(logic, name)
         safe = "safe logic"
         dealer = Player(safe, "Dealer")
+    
+    def dealCard(self, player):
+        card = self.pile.pop()
+        player.acceptCard(card)
