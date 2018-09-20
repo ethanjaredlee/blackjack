@@ -6,3 +6,6 @@ class HumanPlayer(IPlayer):
 
     def chooseAction(self, hand):
         return 1
+    
+    def makeWager(self, remaining):
+        return 1

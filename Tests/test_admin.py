@@ -2,6 +2,7 @@ import Game.Admin as Admin
 import Game.Player as Player
 import Game.PlayerLogic.Simple as Simple
 import unittest
+import ipdb
 
 class AdminTestCase(unittest.TestCase):
     def setUp(self):
@@ -23,3 +24,9 @@ class AdminTestCase(unittest.TestCase):
 
         self.assertEquals(len(self.player.hand), 1)
         self.assertEquals(len(self.admin.pile), 52*self.NUMBER_OF_DECKS-1)
+    
+    def test_accept_wagers(self):
+        self.admin.addPlayer(self.player)
+        wagers = self.admin.acceptWagers()
+        self.assertEquals(len(wagers), 1)
+        self.assertEquals(wagers[self.player], 10)

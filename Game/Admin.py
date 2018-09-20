@@ -15,7 +15,10 @@ class Admin(object):
             self.pile.extend([Card(rank, suit) for rank in constants.CARD_RANKS 
                                                for suit in constants.CARD_SUITS])
         dealerLogic = SimplePlayer()
-        self.players = [Player(dealerLogic, 'Dealer')]
+        self.players = [Player(dealerLogic, 'Dealer', True)]
+    
+    def addPlayer(self, player):
+        self.players.append(player)
 
     def shuffle(self):
         assert len(self.pile) == self.deckNumber * 52, "Full deck is needed to shuffle"
@@ -26,7 +29,7 @@ class Admin(object):
         player.acceptCard(card)
     
     def acceptWagers(self):
-        pass
+        return {player: player.makeWager() for player in self.players if not player.dealer}
 
     def givePlayerActions(self):
         pass
