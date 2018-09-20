@@ -5,6 +5,9 @@ class Hand(object):
     def __init__(self):
         self.cards = []
     
+    def __len__(self):
+        return len(self.cards)
+    
     def addCard(self, card):
         self.cards.append(card)
 

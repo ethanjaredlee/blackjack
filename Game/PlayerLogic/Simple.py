@@ -7,8 +7,11 @@ class SimplePlayer(IPlayer):
     def __init__(self):
         pass
 
-    def chooseAction(self, hand):
+    def chooseAction(self, hand, others):
         if hand.getValue() < 17:
             # then hit
             pass
         return 1
+    
+    def makeWager(self, remaining):
+        return 10

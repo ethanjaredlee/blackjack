@@ -4,7 +4,7 @@ class IAction:
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def legal(self, player, dealer): pass
+    def legal(self, player, admin): pass
 
     @abstractmethod
-    def effect(self, player, dealer): pass
+    def effect(self, player, admin): pass
