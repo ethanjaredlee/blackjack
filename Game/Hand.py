@@ -30,8 +30,6 @@ class Hand(object):
                 if val > 21:
                     value = possibleValues[max(0, i-1)]
                     break
-
+        if value > 21:
+            value = -1
         return value
-
-    def isBusted(self):
-        return self.getValue() > 21
