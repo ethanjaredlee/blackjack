@@ -8,3 +8,6 @@ class Double(IAction.IAction):
         admin.dealCard(player)
         player.active = False
         admin.wagers[player] *= 2
+
+    def actionName(self):
+        return "Double"

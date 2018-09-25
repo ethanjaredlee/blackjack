@@ -8,3 +8,6 @@ class IAction:
 
     @abstractmethod
     def effect(self, player, admin): pass
+
+    @abstractmethod
+    def actionName(self): pass

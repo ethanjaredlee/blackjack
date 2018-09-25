@@ -6,3 +6,6 @@ class Stand(IAction.IAction):
     
     def effect(self, player, admin):
         player.active = False
+
+    def actionName(self):
+        return "Stand"

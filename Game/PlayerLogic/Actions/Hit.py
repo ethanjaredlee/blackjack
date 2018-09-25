@@ -10,3 +10,6 @@ class Hit(IAction.IAction):
         admin.dealCard(player)
         if player.getHandValue() > 21:
             player.bust()
+
+    def actionName(self):
+        return "Hit"
