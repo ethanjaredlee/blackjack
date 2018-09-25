@@ -16,6 +16,7 @@ class Admin(object):
         self.resetDeck(decks)
         self.dealer = Player(dealerLogic, 'Dealer')
         self.players = []
+        self.wagers = {}
     
     def resetDeck(self, decks):
         self.pile = []
@@ -36,7 +37,7 @@ class Admin(object):
         player.acceptCard(card)
 
     def playTurn(self):
-        wagers = {player: player.makeWager() for player in self.players}
+        self.wagers = {player: player.makeWager() for player in self.players}
 
         activePlayers = self.players[:]
         inactivePlayers = []
@@ -66,19 +67,25 @@ class Admin(object):
         for player in inactivePlayers:
             playerHandValue = player.getHandValue()
             dealerHandValue = self.dealer.getHandValue()
+            print player.name + ' hand: ' + str(player.hand) + ' | value: ' + str(playerHandValue)
+            print 'dealer hand: ' + str(self.dealer.hand) + ' | value: ' + str(dealerHandValue)
             if playerHandValue <= 21:
                 # player automatically loses their wager if they bust
                 if dealerHandValue > 21 or playerHandValue > dealerHandValue:
                     print 'player ' + player.name + ' won!'
-                    player.awardEarnings(wagers[player])
+                    player.adjustBalance(self.wagers[player])
                 elif dealerHandValue == playerHandValue:
                     print 'player ' + player.name + ' tied dealer!'
-                    player.returnWager(wagers[player])
+                    player.adjustBalance(0)
                 else:
+                    player.adjustBalance(-1*self.wagers[player])
                     print 'dealer won'
             else:
+                player.adjustBalance(-1*self.wagers[player])
                 print 'dealer won'
 
+        for player in self.players:
+            print player.money
 
         # reset all players hands
         for player in self.players:
@@ -89,3 +96,5 @@ class Admin(object):
 
         # reset the deck
         self.resetDeck(self.deckNumber)
+        
+        self.wagers = {}

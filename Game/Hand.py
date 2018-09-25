@@ -8,6 +8,9 @@ class Hand(object):
     def __len__(self):
         return len(self.cards)
     
+    def __repr__(self):
+        return str(self.cards)
+    
     def addCard(self, card):
         self.cards.append(card)
 

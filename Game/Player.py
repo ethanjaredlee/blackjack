@@ -21,20 +21,19 @@ class Player(object):
         if value > 21:
             self.bust()
         return value
+    
+    def cardCount(self):
+        return len(self.hand.cards)
 
     def makeWager(self):
         wager = self.iplayer.makeWager(self.money)
-        self.money -= wager
         return wager
 
     def isActive(self):
         return self.active
     
-    def awardEarnings(self, wager):
-        self.money += wager*2               # 2x because player is paid wager back
-    
-    def returnWager(self, wager):
-        self.money += wager
+    def adjustBalance(self, amount):
+        self.money += amount
     
     def resetHand(self):
         self.hand = Hand()
