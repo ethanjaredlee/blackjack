@@ -2,7 +2,6 @@ from Card import Card
 from Player import Player
 from PlayerLogic.Simple import SimplePlayer
 import constants
-import PlayerLogic.Actions.Hit as Hit 
 import random
 import ipdb
 
@@ -17,13 +16,9 @@ class Admin(object):
         self.resetDeck(decks)
         self.dealer = Player(dealerLogic, 'Dealer')
         self.players = []
-
-        # initializing all the created actions
-        self.actions = [
-            Hit.Hit()
-        ]
     
     def resetDeck(self, decks):
+        self.pile = []
         for _ in range(decks):
             self.pile.extend([Card(rank, suit) for rank in constants.CARD_RANKS 
                                                for suit in constants.CARD_SUITS])
@@ -39,22 +34,12 @@ class Admin(object):
     def dealCard(self, player):
         card = self.pile.pop()
         player.acceptCard(card)
-    
-    def givePlayerActions(self, player):
-        legalActions = []
-        for action in self.actions:
-            if action.legal(player, self):
-                pass
-        pass
-    
-    def executePlayerAction(self, player, action):
-        pass
 
     def playTurn(self):
-        ipdb.set_trace()
         wagers = {player: player.makeWager() for player in self.players}
 
-        activePlayers = self.players
+        activePlayers = self.players[:]
+        inactivePlayers = []
         for player in activePlayers:
             self.dealCard(player)
             self.dealCard(player)
@@ -66,20 +51,24 @@ class Admin(object):
         # all players finish their hands first
         while len(activePlayers) > 0:
             currentPlayer = activePlayers.pop(0)
-            action = self.givePlayerActions(currentPlayer) 
-            self.executePlayerAction(currentPlayer, action)
+            currentPlayer.executeAction(self)
             if currentPlayer.isActive():
-                activePlayers.append(player)
+                activePlayers.append(currentPlayer)
+            else:
+                inactivePlayers.append(currentPlayer)
         
         # dealer finishes his hand
         while self.dealer.isActive():
-            action = self.givePlayerActions(self.dealer)
-            self.executePlayerAction(self.dealer, action)
+            self.dealer.executeAction(self)
         
         # distribute earnings
-        for player in self.players:
-            if player.getHandValue > self.dealer.getHandValue:
+        ipdb.set_trace()
+        for player in inactivePlayers:
+            if player.getHandValue > self.dealer.getHandValue and player.getHandValue <= 21:
                 player.awardEarnings(wagers[player])
+                print "player won"
+            else:
+                print "dealer won"
 
         # reset all players hands
         for player in self.players:
@@ -90,8 +79,6 @@ class Admin(object):
 
         # reset the deck
         self.resetDeck(self.deckNumber)
-
-
             
         # each player makes their wager
         # deal hands

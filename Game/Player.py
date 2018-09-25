@@ -1,5 +1,6 @@
 from Hand import Hand
 from PlayerLogic.IPlayerLogic import IPlayer
+import constants
 
 class Player(object):
     def __init__(self, playerLogic, name):
@@ -11,6 +12,9 @@ class Player(object):
 
     def acceptCard(self, card):
         self.hand.addCard(card)
+    
+    def bust(self):
+        self.active = False
 
     def getHandValue(self):
         return self.hand.getValue()
@@ -28,3 +32,11 @@ class Player(object):
     
     def resetHand(self):
         self.hand = Hand()
+
+    def executeAction(self, admin):
+        legalActions = []
+        for action in constants.ACTIONS:
+            if action.legal(self, admin):
+                legalActions.append(action)
+        action = self.iplayer.chooseAction(self.hand, admin, legalActions)
+        action.effect(self, admin)

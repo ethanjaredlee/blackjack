@@ -1,4 +1,7 @@
 from IPlayerLogic import IPlayer
+import constants
+import Actions as Actions
+import ipdb
 
 class SimplePlayer(IPlayer):
     """ 
@@ -7,11 +10,12 @@ class SimplePlayer(IPlayer):
     def __init__(self):
         pass
 
-    def chooseAction(self, hand, others):
-        if hand.getValue() < 17:
-            # then hit
-            pass
-        return 1
+    def chooseAction(self, hand, admin, legalActions):
+        if any(isinstance(action, Actions.Hit.Hit) for action in legalActions):
+            return Actions.Hit.Hit()
+        else:
+            print "hit not found"
+            return None
     
     def makeWager(self, remaining):
         return 10

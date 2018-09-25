@@ -1,3 +1,9 @@
+import PlayerLogic.Actions.Hit as Hit
+
+ACTIONS = [
+    Hit.Hit()
+]
+
 # Standard deck card ranks and suits
 CARD_RANK_NUMBERS = ["2", "3", "4", "5", "6", "7", "8", "9", "10"]
 CARD_RANK_FACES = ["J", "Q", "K"]
