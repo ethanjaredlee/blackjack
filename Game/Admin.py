@@ -62,13 +62,22 @@ class Admin(object):
             self.dealer.executeAction(self)
         
         # distribute earnings
-        ipdb.set_trace()
         for player in inactivePlayers:
-            if player.getHandValue > self.dealer.getHandValue and player.getHandValue <= 21:
-                player.awardEarnings(wagers[player])
-                print "player won"
+            playerHandValue = player.getHandValue()
+            dealerHandValue = self.dealer.getHandValue()
+            if playerHandValue <= 21:
+                # player automatically loses their wager if they bust
+                if dealerHandValue > 21 or playerHandValue > dealerHandValue:
+                    print 'player ' + player.name + ' won!'
+                    player.awardEarnings(wagers[player])
+                elif dealerHandValue == playerHandValue:
+                    print 'player ' + player.name + ' tied dealer!'
+                    player.returnWager(wagers[player])
+                else:
+                    print 'dealer won'
             else:
-                print "dealer won"
+                print 'dealer won'
+
 
         # reset all players hands
         for player in self.players:
@@ -79,6 +88,7 @@ class Admin(object):
 
         # reset the deck
         self.resetDeck(self.deckNumber)
+        ipdb.set_trace()
             
         # each player makes their wager
         # deal hands

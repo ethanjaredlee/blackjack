@@ -30,6 +30,9 @@ class Player(object):
     def awardEarnings(self, wager):
         self.money += wager*2               # 2x because player is paid wager back
     
+    def returnWager(self, wager):
+        self.money += wager
+    
     def resetHand(self):
         self.hand = Hand()
 
