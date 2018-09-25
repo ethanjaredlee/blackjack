@@ -5,9 +5,15 @@ class HumanPlayer(IPlayer):
         pass
 
     def chooseAction(self, hand, admin, legalActions):
-        for action in legalActions:
-            print action.actionName
-        return 1
+        print 'Your hand: ' + str(hand) + ' | value: ' + str(hand.getValue())
+        print "Dealers face-up card: " + str(admin.dealer.hand.cards[0]) 
+        for i, action in enumerate(legalActions):
+            print str(i) + '. ' + action.actionName()
+        actionIndex = int(raw_input('choose the number of the action you want to take '))
+        return legalActions[actionIndex]
+        
     
     def makeWager(self, remaining):
-        return 1
+        wager = int(raw_input("How much do you wish to bet? "))
+
+        return wager

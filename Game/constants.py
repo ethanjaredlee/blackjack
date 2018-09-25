@@ -1,7 +1,11 @@
 import PlayerLogic.Actions.Hit as Hit
+import PlayerLogic.Actions.Stand as Stand
+import PlayerLogic.Actions.Double as Double 
 
 ACTIONS = [
-    Hit.Hit()
+    Hit.Hit(),
+    Stand.Stand(),
+    Double.Double()
 ]
 
 # Standard deck card ranks and suits
