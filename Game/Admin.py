@@ -2,8 +2,9 @@ from Card import Card
 from Player import Player
 from PlayerLogic.Simple import SimplePlayer
 import constants
-import PlayerLogic.Actions as Actions
+import PlayerLogic.Actions.Hit as Hit 
 import random
+import ipdb
 
 class Admin(object):
 
@@ -19,7 +20,7 @@ class Admin(object):
 
         # initializing all the created actions
         self.actions = [
-            Actions.Hit.Hit()
+            Hit.Hit()
         ]
     
     def resetDeck(self, decks):
@@ -50,6 +51,7 @@ class Admin(object):
         pass
 
     def playTurn(self):
+        ipdb.set_trace()
         wagers = {player: player.makeWager() for player in self.players}
 
         activePlayers = self.players
