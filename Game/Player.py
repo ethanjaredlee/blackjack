@@ -17,7 +17,10 @@ class Player(object):
         self.active = False
 
     def getHandValue(self):
-        return self.hand.getValue()
+        value = self.hand.getValue()
+        if value > 21:
+            self.bust()
+        return value
 
     def makeWager(self):
         wager = self.iplayer.makeWager(self.money)

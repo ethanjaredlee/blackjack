@@ -62,6 +62,7 @@ class Admin(object):
             self.dealer.executeAction(self)
         
         # distribute earnings
+        # TODO: account for 3:2 wager payouts, etc
         for player in inactivePlayers:
             playerHandValue = player.getHandValue()
             dealerHandValue = self.dealer.getHandValue()
@@ -88,13 +89,3 @@ class Admin(object):
 
         # reset the deck
         self.resetDeck(self.deckNumber)
-        ipdb.set_trace()
-            
-        # each player makes their wager
-        # deal hands
-        # for all players that are active
-        #   give them actions
-        #   execute that action
-        # distribute money
-        # reset cards
-        pass
