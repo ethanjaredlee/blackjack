@@ -69,6 +69,7 @@ class Admin(object):
         
         # distribute earnings
         # TODO: account for 3:2 wager payouts, etc
+        # BUG: player can't hit more than twice
         for player in inactivePlayers:
             playerHandValue = player.getHandValue()
             dealerHandValue = self.dealer.getHandValue()

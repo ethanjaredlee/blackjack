@@ -1,6 +1,7 @@
 from Hand import Hand
 from PlayerLogic.IPlayerLogic import IPlayer
 import constants
+import ipdb
 
 class Player(object):
     def __init__(self, playerLogic, name):
@@ -40,6 +41,7 @@ class Player(object):
     
     def resetHand(self):
         self.hand = Hand()
+        self.active = True
 
     def executeAction(self, admin):
         legalActions = []
@@ -47,4 +49,5 @@ class Player(object):
             if action.legal(self, admin):
                 legalActions.append(action)
         action = self.iplayer.chooseAction(self.hand, admin, legalActions)
+        print "Player chooses to " + action.actionName()
         action.effect(self, admin)
