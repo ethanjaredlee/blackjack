@@ -49,5 +49,5 @@ class Player(object):
             if action.legal(self, admin):
                 legalActions.append(action)
         action = self.iplayer.chooseAction(self.hand, admin, legalActions)
-        print "Player chooses to " + action.actionName()
+        print self.name + " chooses to " + action.actionName()
         action.effect(self, admin)

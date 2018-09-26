@@ -24,13 +24,17 @@ class Hand(object):
                 value += 10
             else:
                 aces += 1
+
+        # return the value closest to 21 with each ace being 1 or 11
         if aces > 0:
             possibleValues = []
-            for i in range(aces):
-                possibleValues.append(value + (i+1)*1 + 11*(aces-i-1))
-            possibleValues.sort()
-            for i, val in enumerate(possibleValues):
-                if val > 21:
-                    value = possibleValues[max(0, i-1)]
-                    break
+            possibleValues.append(value + aces)
+            for ace in range(aces):
+                possibleValues.append(possibleValues[0] + 10*(ace+1))
+            legalValues = [val for val in possibleValues if val <= 21]
+            if len(legalValues) == 0:
+                value = possibleValues[0]
+            else:
+                value = legalValues.pop()
+
         return value

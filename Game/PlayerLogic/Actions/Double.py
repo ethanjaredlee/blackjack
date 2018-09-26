@@ -1,5 +1,7 @@
 import IAction
 
+# BUG: Double hits and stands as well?
+
 class Double(IAction.IAction):
     def legal(self, player, admin):
         return player.cardCount() == 2 and player.isActive()

@@ -1,9 +1,7 @@
 from IPlayerLogic import IPlayer
-import constants
 import Actions.Hit as Hit
 import Actions.Stand as Stand
 import Actions.Double as Double
-import ipdb
 
 class SimplePlayer(IPlayer):
     """ 
