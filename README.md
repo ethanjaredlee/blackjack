@@ -13,3 +13,11 @@ An individual action can also be added, it just has to implement IAction, defini
 ## Shortcomings
 * Testing. I was running out of time and haven't written that many unit tests
 * As much as I wanted to make this game modular, and have the ability to have third parties add in actions, I'm passing in the game administrator which isn't very safe because it allows an action to change how the game is being played completely. Thinking about the real world, this seems fine however, because different actions do change how the game is being played and almost allows rules to be redefined. 
+
+## TODO
+* Add more tests
+* Add more contract checks
+* Insurance and Splits
+* Reformat terminal interface so that it's easier to read
+* (?) Suggestion on which action to take
+* (?) Add a network player
