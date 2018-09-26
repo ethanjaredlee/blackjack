@@ -13,6 +13,9 @@ class Player(object):
     def acceptCard(self, card):
         self.hand.addCard(card)
     
+    def isBroke(self):
+        return self.money <= 0
+    
     def bust(self):
         self.active = False
 

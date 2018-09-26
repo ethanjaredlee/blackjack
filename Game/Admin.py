@@ -35,6 +35,11 @@ class Admin(object):
     def dealCard(self, player):
         card = self.pile.pop()
         player.acceptCard(card)
+    
+    def playGame(self):
+        while len(self.players) > 0:
+            self.playTurn()
+        print "GAME OVER"
 
     def playTurn(self):
         self.wagers = {player: player.makeWager() for player in self.players}
@@ -86,6 +91,8 @@ class Admin(object):
 
         for player in self.players:
             print player.money
+            if player.isBroke():
+                self.players.remove(player)
 
         # reset all players hands
         for player in self.players:
