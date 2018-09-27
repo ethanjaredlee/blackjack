@@ -17,6 +17,7 @@ class Admin(object):
         self.dealer = Player(dealerLogic, 'Dealer')
         self.players = []
         self.wagers = {}
+        self.round = 0
     
     def resetDeck(self, decks):
         self.pile = []
@@ -42,6 +43,16 @@ class Admin(object):
         print "GAME OVER"
 
     def playTurn(self):
+        self.round += 1
+        print ''
+        print '---------------ROUND ' + str(self.round) + '---------------'
+        print ''
+
+        for player in self.players:
+            print player.name + "'s balance: $" + str(player.money)
+        
+        print ''
+
         self.wagers = {player: player.makeWager() for player in self.players}
 
         activePlayers = self.players[:]
@@ -63,6 +74,7 @@ class Admin(object):
             else:
                 inactivePlayers.append(currentPlayer)
         
+        print ''
         # dealer finishes his hand
         while self.dealer.isActive():
             self.dealer.executeAction(self)
@@ -73,24 +85,24 @@ class Admin(object):
             playerHandValue = player.getHandValue()
             dealerHandValue = self.dealer.getHandValue()
             print player.name + ' hand: ' + str(player.hand) + ' | value: ' + str(playerHandValue)
-            print 'dealer hand: ' + str(self.dealer.hand) + ' | value: ' + str(dealerHandValue)
+            print 'Dealer hand: ' + str(self.dealer.hand) + ' | value: ' + str(dealerHandValue)
             if playerHandValue <= 21:
                 # player automatically loses their wager if they bust
                 if dealerHandValue > 21 or playerHandValue > dealerHandValue:
-                    print 'player ' + player.name + ' won!'
+                    print player.name + ' won!'
                     player.adjustBalance(self.wagers[player])
                 elif dealerHandValue == playerHandValue:
-                    print 'player ' + player.name + ' tied dealer!'
+                    print player.name + ' tied dealer!'
                     player.adjustBalance(0)
                 else:
                     player.adjustBalance(-1*self.wagers[player])
-                    print 'dealer won'
+                    print 'Dealer won'
             else:
                 player.adjustBalance(-1*self.wagers[player])
-                print 'dealer won'
+                print 'Dealer won'
+
 
         for player in self.players:
-            print player.money
             if player.isBroke():
                 self.players.remove(player)
 

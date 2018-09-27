@@ -14,7 +14,8 @@ if __name__ == "__main__":
             break
     
     admin = Admin.Admin(decks)
-    player = Player.Player(Human.HumanPlayer(), "Ethan")
+    name = raw_input("What is your name?")
+    player = Player.Player(Human.HumanPlayer(), name)
     admin.addPlayer(player)
     
     admin.playGame()
