@@ -1,23 +1,30 @@
 # blackjack
 
-## Thought Process
-Making the game blackjack doesn't seem like too hard of a task at first. However, blackjack comes with a lot of little nuances that I don't want to worry about right now, but I might want to add in in the future. An example of this is actions that are available to a player. At first I thought blackjack was played with just hit and stand rules, but quickly found out that there are other actions like doubling and insurance. The challenge I wanted to add in this code was to make it robust and easily modified if I wanted to include more actions or features in the future. 
+## Running the game/tests
+To start the game from the root directory, run `python Game/Engine.py`
+To run tests from the root directory, run `python -m unittest discover`
 
-## Game Limitations
-Right now, the game has 3 actions: Hit, Double, or Stand. This is enough for a human player to play a full game (if I had a human player implemented). Currently, I've been playing the game with two dummy players, the dealer and another player. 
+## Rules
+Single player blackjack game with the ability to hit, stand, and double. Payouts are always 1:1 and there is no insurance. 
 
-## Game Design Choices
-Each player has it's own player logic that implements the ABC IPlayerLogic.py. This way we can do cool things like implement different player AIs, a human interface, or even create a player that can communicate over a network (I did this in a Tsuro board game implementation). 
-An individual action can also be added, it just has to implement IAction, defining prerequisites for the action to be implemented and what the action actually does. 
+## Design
+This code was designed for continued development outside the scope of the original project. The current stage for this would be considered an MVP.
+* Admin handles the logic of playing each turn and keeps track of each player and the deck
+* Player holds information about their hand, money, logic and whether they're still active in the current turn. I abstracted the player logic so that you can add other players to the game that implement different strategies, human players, and even networked players. 
+* IAction is an interface to allow a future developer (myself) to add more actions like insurance and a blackjack 3:2 payout. I made it like this because I knew I wouldn't have the proper time to implement all the actions in blackjack. 
+* Hand holds cards and can calculate the total value of the cards it carries. Fairly straightforward stuff except aces can be 1 or 11 and will yield the value of the hand less than or closest to 21. 
+
+## Tooling
+I used pretty basic tools. I was originally going to choose C# as my language because it's a strongly typed language, but I already finished a project like this in C# and wanted to try it in Python. Also Python development is "faster". I used the basic unittest library and ipdb as my debugger.
 
 ## Shortcomings
-* Testing. I was running out of time and haven't written that many unit tests
-* As much as I wanted to make this game modular, and have the ability to have third parties add in actions, I'm passing in the game administrator which isn't very safe because it allows an action to change how the game is being played completely. Thinking about the real world, this seems fine however, because different actions do change how the game is being played and almost allows rules to be redefined. 
+* My tests suck to be honest. I'm working on getting more in there, but wanted to submit my code asap
+* I could include more contracts
+* I need a couple more actions for this to be a complete game
+* GUI interface
+* Multiplayer 
 
-## TODO
-* Add more tests
-* Add more contract checks
-* Insurance and Splits
-* Reformat terminal interface so that it's easier to read
-* (?) Suggestion on which action to take
-* (?) Add a network player
+## Reflection
+I probably could've finished this project in a quarter of the time if I just hacked my way through it. However I wanted to try making it in such a way that was cleaner and more extensible (what if someone's playing a variation of blackjack and wanted to modify the code for that). I have to learn to get better at writing tests quickly, scratch that, writing **good tests** quickly. I had this bug where hand value wasn't being calculated correctly and my tests still passed. 
+
+TL;DR: thanks for the challenge, I learned a lot and would love any feedback if you're allowed to give it because I know someone out there is cringing at my code quality. 
